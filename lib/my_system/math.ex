@@ -22,9 +22,14 @@ defmodule MySystem.Math do
     pid
   end
 
+  # tail-recursion example
   defp calc_sum(_caller, 13), do: raise("error")
   defp calc_sum(caller, n), do: send(caller, {:sum, self(), calc_sum(1, n, 0)})
 
   defp calc_sum(from, from, sum), do: sum + from
   defp calc_sum(from, to, acc_sum), do: calc_sum(from + 1, to, acc_sum + from)
+
+  # apply gauss formula example
+  #defp calc_sum(_caller, 13), do: raise("error")
+  #defp calc_sum(caller, n), do: send(caller, {:sum, self(), div(n * (n + 1), 2)})
 end
